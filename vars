@@ -1,0 +1,35 @@
+#!/bin/bash
+
+(
+# Name of the exporter, like "node.js exporter"
+export EXPORTER_NAME="prom-client for Node.js"
+# lowercase name to use in config, URLs, etc.
+export EXPORTER_NAME_LOWERCASE="prom-client-exporter"
+# Name of the system that's being monitored, for example, Node.js
+export SYSTEM_NAME="Node.js"
+# Name of the system that's being monitored, lowercase for use in config, etc.
+export SYSTEM_NAME_LOWERCASE="nodejs"
+# Number of time series this exporter ships by default. Basically count lines in a sample scrape, omitting
+# HELP, etc. lines
+export NUM_TIME_SERIES="TODO"
+# URL to mixin for this exporter
+export MIXIN_URL="https://github.com/grafana/jsonnet-libs/tree/master/nodejs-mixin"
+# URL to cloud docs for this exporter
+export INTEGRATION_URL="https://grafana.com/docs/grafana-cloud/integrations/integration-nodejs/"
+# Version exporter, might not be used?
+export EXPORTER_VERSION="v13.1.0"
+# Releases page for exporter, might not be used
+export EXPORTER_RELEASES_URL="https://github.com/siimon/prom-client/releases"
+# Port on which exporter exposes prom metrics
+export EXPORTER_PORT=3000
+# Exporter repo
+export EXPORTER_REPO_URL="https://github.com/siimon/prom-client"
+
+# Run in directory with template
+# For all markdown files in dir, sub the variables with 
+# above env vars. New files have .md2 extension.
+for f in ./*.md;
+do
+  envsubst < $f > "./$(basename $f)2"; 
+done
+) # end subshell
